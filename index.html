@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#021a13" />
+    <meta name="description" content="Kete Tauranga — your local guide to saving on groceries in Tauranga, NZ. Store guide, weekly specials, and smart route planner." />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Kete Tauranga 🧺" />
+    <meta property="og:description" content="Find the best grocery deals, local stores, and plan your shopping route in Tauranga." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://your-username.github.io/kete-tauranga/" />
+
+    <!-- PWA: Add to Home Screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Kete Tauranga" />
+    <link rel="apple-touch-icon" href="/kete-tauranga/icon-192.png" />
+
+    <link rel="icon" type="image/svg+xml" href="/kete-tauranga/favicon.svg" />
+    <title>Kete Tauranga 🧺</title>
+
+    <script>
+      (function(l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+    <script type="module" crossorigin src="/kete-tauranga/assets/index-CnywU033.js"></script>
+    <link rel="stylesheet" crossorigin href="/kete-tauranga/assets/index-Dvah2oqF.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
