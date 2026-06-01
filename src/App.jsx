@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 const C = { bg:'#0a1a14', sf:'rgba(255,255,255,0.03)', sb:'rgba(255,255,255,0.07)', ac:'#10b981', ad:'rgba(16,185,129,0.15)', ab:'rgba(16,185,129,0.25)', t1:'#ecfdf5', t2:'#a7f3d0', t3:'#6ee7b7', yl:'#fbbf24', yld:'rgba(234,179,8,0.08)', ylb:'rgba(234,179,8,0.2)' };
 
 // ========== STORE REGISTRY (single source of truth) ==========
+// Each store has a unique `key` used across all features
 const ALL_STORES = [
   // ---- Pak'nSave ----
   { key:'pns-cameron', name:"Pak'nSave Cameron Rd", chain:"Pak'nSave", area:'Central Tauranga', address:'476 Cameron Road, Tauranga 3110', hours:'8am-9pm, 7 days', type:'Budget Supermarket', tip:"Cheapest overall. Go early morning or after 6:30pm. Fuel station on-site. Club+ from June 2026.", color:'#eab308', lat:-37.6931, lng:176.1654 },
@@ -29,32 +30,65 @@ const ALL_STORES = [
   { key:'fs-tepuna', name:'Four Square Te Puna', chain:'Four Square', area:'Tauriko / West', address:'626 State Highway 2, Te Puna, Tauranga 3176', hours:'7am-8pm, 7 days', type:'Convenience', tip:"Serves Te Puna rural area. Good community store.", color:'#f97316', lat:-37.6312, lng:176.0534 },
   { key:'fs-papamoa', name:'Four Square Papamoa', chain:'Four Square', area:'Papamoa', address:'4 Golden Sands Drive, Papamoa, Tauranga 3118', hours:'7am-8pm, 7 days', type:'Convenience', tip:"Eastern Papamoa store. Handy for Golden Sands and surrounding suburbs.", color:'#f97316', lat:-37.7198, lng:176.3012 },
   // ---- Local ----
-  { key:'bininn-bethlehem', name:'Bin Inn Bethlehem', chain:'Bin Inn', area:'Bethlehem / North', address:'Shop H7, Bethlehem Shopping Centre', hours:'Mon-Sat 9am-5:30pm', type:'Bulk Store', tip:"Nuts at half supermarket price. 5% off BYO container. Peanut & almond butter machines.", color:'#a78bfa', lat:-37.6601, lng:176.1228 },
-  { key:'bininn-papamoa', name:'Bin Inn Papamoa', chain:'Bin Inn', area:'Papamoa', address:'30F Gravatt Rd, Fashion Island, Papamoa', hours:'Mon-Sat 9am-5:30pm', type:'Bulk Store', tip:"Biggest bulk range in region. BYO container for 5% off.", color:'#a78bfa', lat:-37.7115, lng:176.2821 },
-  { key:'frenchsfarm', name:"French's Farm", chain:'Local', area:'Welcome Bay / South', address:'87 Kaituna River Road', hours:'9am-7pm, 7 days', type:'Farm Gate', tip:"Farm gate stall ~15min from CBD. Whiteboard prices, very competitive. Full veg range.", color:'#84cc16', lat:-37.8012, lng:176.2234 },
-  { key:'goodfarm', name:'The Good Farm', chain:'Local', area:'Welcome Bay / South', address:'512 Welcome Bay Road', hours:'7am-7pm, self-service', type:'Farm Shop', tip:"Raw milk $4.50/L, free-range eggs $12/doz. Cash/bank transfer only. BYO bottles.", color:'#84cc16', lat:-37.7389, lng:176.2156 },
-  { key:'kiwifresh', name:'Kiwi Fresh Meats', chain:'Local', area:'Tauriko / West', address:'8 Taurikura Drive, Tauriko', hours:'Check website', type:'Butcher', tip:"Full online price list at kiwifreshmeats.co.nz/shop. Weekly in-store specials.", color:'#e879f9', lat:-37.7408, lng:176.0851 },
-  { key:'bethbutchery', name:'Bethlehem Butchery', chain:'Local', area:'Bethlehem / North', address:'State Highway 2, Bethlehem', hours:'Mon-Fri 8am-5:30pm, Sat 8am-4pm', type:'Butcher', tip:"Family-run since 2002. Free-range, preservative-free. Gluten-free & Paleo options.", color:'#e879f9', lat:-37.6588, lng:176.1198 },
-  { key:'eljefe', name:'El Jefe Meats', chain:'Local', area:'Mt Maunganui', address:'60 Aviation Ave, Mt Maunganui', hours:'Order online Wed/Fri delivery', type:'Artisan Butcher', tip:"Uruguayan chef. Gourmet sausages, smoked bacon, salami. SPCA certified.", color:'#e879f9', lat:-37.6421, lng:176.1889 },
-  { key:'asian101', name:'101 Asian Supermarket', chain:'Local', area:'Central Tauranga', address:'Tauranga (verify address)', hours:'TBC', type:'Asian Grocery', tip:"Local Asian supermarket. Rice, sauces, spices, noodles. Address to be verified — call ahead.", color:'#f97316', lat:-37.6878, lng:176.1651 },
-  { key:'dh-tauranga', name:'DH Tauranga', chain:'Local', area:'Central Tauranga', address:'Cameron Road area', hours:'TBC', type:'Indian Grocery', tip:"Farm-fresh fruit & veg at unbeatable prices. Indian spices, snacks, frozen foods much cheaper than supermarket.", color:'#f97316', website:'facebook.com/DH-Tauranga', lat:-37.6950, lng:176.1620 },
-  { key:'vetro', name:'Vetro Tauranga', chain:'Local', area:'Central Tauranga', address:'Third Avenue, Tauranga', hours:'TBC', type:'Specialty Deli', tip:"Mediterranean foods, quality olive oils, nuts, pasta, cheese, wines. Premium but worth it for specialty items. Online shop at vetro-online.co.nz.", color:'#60a5fa', website:'vetro-online.co.nz', lat:-37.6881, lng:176.1642 },
-  { key:'tepunadeli', name:'Te Puna Deli', chain:'Local', area:'Tauriko / West', address:'Te Puna, Tauranga', hours:'TBC', type:'Deli / Cafe', tip:"Premium deli. Hungarian salamis made on-site. Stocks Mount Sourdough bread. NZ/imported cheeses, charcuterie, gift boxes.", color:'#60a5fa', website:'tepunadeli.co.nz', lat:-37.6312, lng:176.0534 },
-  { key:'simplyorganic', name:'Simply Organic', chain:'Local', area:'Central Tauranga', address:'771 Cameron Road, Tauranga', hours:'TBC', type:'Organic Store', tip:"One-stop organic. Organic veg, grocery, health, bulk dry goods, frozen, herbs, spices. Online delivery NZ-wide. 8 car parks at rear.", color:'#10b981', website:'simplyorganic.co.nz', lat:-37.7012, lng:176.1598 },
-  { key:'beorganics', name:'Be Organics', chain:'Local', area:'Mt Maunganui', address:'At Mount Wholefoods, 13 Reed St, Mt Maunganui', hours:'Mount Wholefoods hours', type:'Organic', tip:"Certified organic NZ-grown produce. Sprouts, microgreens, kale, courgettes, eggs. Sold via Mount Wholefoods. Custom boxes from 300g.", color:'#10b981', website:'beorganics.co.nz', lat:-37.6434, lng:176.1876 },
-  { key:'familypantry', name:'Family Pantry', chain:'Local', area:'Central Tauranga', address:'Online — familypantry.nz', hours:'Online orders, NZ-wide delivery', type:'Organic Bulk', tip:"Online organic bulk store. Certified organic grains, seeds, nuts, flours, dried fruit. Plastic-free packaging. Min order 200g. Donates near-expiry stock to charity.", color:'#10b981', website:'familypantry.nz', lat:null, lng:null },
-  { key:'gourmettrader', name:'Gourmet Trader', chain:'Local', area:'Central Tauranga', address:'Cameron Road, Gate Pa', hours:'Mon-Fri 9am-5pm, Sat 10am-5pm', type:'Kitchenware / Gourmet', tip:"Expert kitchenware + gourmet sauces, spices and condiments. Not a grocery store — but the place for quality cooking tools and artisan pantry staples.", color:'#60a5fa', lat:-37.7074, lng:176.1612 },
-  { key:'blackforest', name:'Blackforest Gourmet', chain:'Local', area:'Central Tauranga', address:'65 Chapel Street, Tauranga CBD', hours:'TBC', type:'European Butcher', tip:"German sausages, European smallgoods, cheeses, pate, salamis, smoked meats. Premium European-style. Online shop + NZ-wide delivery.", color:'#e879f9', website:'blackforestgourmet.co.nz', lat:-37.6897, lng:176.1668 },
-  { key:'merivale', name:'Merivale Butchery', chain:'Local', area:'South Tauranga', address:'1305 Cameron Road, Greerton', hours:'TBC', type:'Butcher', tip:"Traditional butcher. Known for Big Boy sausages (176g) — they make 600-1000kg/week. Beef, lamb, pork, chicken. Everything made in-store.", color:'#e879f9', lat:-37.7268, lng:176.1523 },
-  { key:'cherrywoodbutchery', name:'Cherrywood Butchery', chain:'Local', area:'North Tauranga', address:'Cherrywood Drive, Otumoetai', hours:'TBC', type:'Butcher', tip:"Traditional independent butcher. Quality cuts, gourmet items, everything made from scratch in-store.", color:'#e879f9', lat:-37.6821, lng:176.1398 },
-  { key:'boerewors', name:'Boerewors NZ', chain:'Local', area:'Tauriko / West', address:'761 SH29, Tauriko (+ Mt Maunganui)', hours:'Two shops + online NZ-wide', type:'Specialty Butcher', tip:"South African boerewors, biltong, drywors, Russian sausages. Family business. NZ-wide shipping Mon-Wed. Also at Mt Maunganui location.", color:'#e879f9', website:'boerewors.nz', lat:-37.7432, lng:176.0812 },
-  { key:'mountsourdough', name:'Mount Sourdough', chain:'Local', area:'Mt Maunganui', address:'Mount Maunganui', hours:'TBC', type:'Bakery', tip:"Highly rated artisan sourdough bakery. Available at Te Puna Deli and other stockists around Tauranga.", color:'#fbbf24', website:'mountsourdough.com', lat:-37.6378, lng:176.1812 },
+  // valueTags: { label, level } where level = 'cheaper' (green) | 'worth' (yellow)
+  { key:'bininn-bethlehem', name:'Bin Inn Bethlehem', chain:'Bin Inn', area:'Bethlehem / North', address:'Shop H7, Bethlehem Shopping Centre', hours:'Mon-Sat 9am-5:30pm', type:'Bulk Store', tip:"Nuts at half supermarket price. 5% off BYO container. Peanut & almond butter machines.", color:'#a78bfa', lat:-37.6601, lng:176.1228,
+    valueTags:[{label:'🥜 Nuts & seeds',level:'cheaper'},{label:'🌾 Grains & flour',level:'cheaper'},{label:'🫙 Dried fruit',level:'cheaper'}] },
+  { key:'bininn-papamoa', name:'Bin Inn Papamoa', chain:'Bin Inn', area:'Papamoa', address:'30F Gravatt Rd, Fashion Island, Papamoa', hours:'Mon-Sat 9am-5:30pm', type:'Bulk Store', tip:"Biggest bulk range in region. BYO container for 5% off.", color:'#a78bfa', lat:-37.7115, lng:176.2821,
+    valueTags:[{label:'🥜 Nuts & seeds',level:'cheaper'},{label:'🌾 Grains & flour',level:'cheaper'},{label:'🫙 Dried fruit',level:'cheaper'}] },
+  { key:'frenchsfarm', name:"French's Farm", chain:'Local', area:'Welcome Bay / South', address:'87 Kaituna River Road', hours:'9am-7pm, 7 days', type:'Farm Gate', tip:"Farm gate stall ~15min from CBD. Whiteboard prices, very competitive. Full veg range.", color:'#84cc16', lat:-37.8012, lng:176.2234,
+    valueTags:[{label:'🥦 Seasonal veg',level:'cheaper'},{label:'🥕 Root veg',level:'cheaper'},{label:'🥬 Leafy greens',level:'cheaper'},{label:'🎃 Pumpkin & squash',level:'cheaper'}] },
+  { key:'goodfarm', name:'The Good Farm', chain:'Local', area:'Welcome Bay / South', address:'512 Welcome Bay Road', hours:'7am-7pm, self-service', type:'Farm Shop', tip:"Raw milk $4.50/L, free-range eggs $12/doz. Cash/bank transfer only. BYO bottles.", color:'#84cc16', lat:-37.7389, lng:176.2156,
+    valueTags:[{label:'🥛 Raw milk',level:'worth'},{label:'🥚 Free-range eggs',level:'worth'},{label:'🍯 Local honey',level:'worth'}] },
+  { key:'kiwifresh', name:'Kiwi Fresh Meats', chain:'Local', area:'Tauriko / West', address:'8 Taurikura Drive, Tauriko', hours:'Mon-Fri 7am-5:30pm, Sat 7am-4pm, Sun 7am-3pm', type:'Butcher', tip:"Full online price list at kiwifreshmeats.co.nz/shop. Weekly in-store specials.", color:'#e879f9', lat:-37.7408, lng:176.0851,
+    valueTags:[{label:'🥩 Bulk meat',level:'cheaper'},{label:'🐑 Lamb cuts',level:'cheaper'},{label:'🐖 Pork ribs',level:'worth'}] },
+  { key:'bethbutchery', name:'Bethlehem Butchery', chain:'Local', area:'Bethlehem / North', address:'State Highway 2, Bethlehem', hours:'Mon-Fri 7:30am-5:30pm, Sat 7am-1pm', type:'Butcher', tip:"Family-run since 2002. Free-range, preservative-free. Gluten-free & Paleo options.", color:'#e879f9', lat:-37.6588, lng:176.1198,
+    valueTags:[{label:'🥩 Free-range meat',level:'worth'},{label:'🌿 Preservative-free',level:'worth'}] },
+  { key:'eljefe', name:'El Jefe Meats', chain:'Local', area:'Mt Maunganui', address:'Unit 3, 60 Aviation Ave, Mt Maunganui', hours:'Mon-Fri 9am-3pm, Sat 9am-2pm', type:'Artisan Butcher', tip:"Uruguayan chef. Gourmet sausages, smoked bacon, salami. SPCA certified.", color:'#e879f9', lat:-37.6421, lng:176.1889,
+    valueTags:[{label:'🌭 Gourmet sausages',level:'worth'},{label:'🥓 Smoked bacon',level:'worth'}] },
+  // ---- From Tauranga Local Stores spreadsheet ----
+  { key:'asian101', name:'101 Asian Supermarket', chain:'Local', area:'Central Tauranga', address:'683 Cameron Road, Tauranga', hours:'9am-6pm daily', type:'Asian Grocery', tip:"Local Asian supermarket. Rice, sauces, spices, noodles. Address to be verified — call ahead.", color:'#f97316', lat:-37.6878, lng:176.1651,
+    valueTags:[{label:'🍚 Rice',level:'cheaper'},{label:'🥢 Noodles & sauces',level:'cheaper'},{label:'🫙 Asian pantry',level:'cheaper'}] },
+  { key:'dh-tauranga', name:'DH Tauranga', chain:'Local', area:'Central Tauranga', address:'Cameron Road area', hours:'8:30am-8:30pm daily', type:'Indian Grocery', tip:"Farm-fresh fruit & veg at unbeatable prices. Indian spices, snacks, frozen foods much cheaper than supermarket.", color:'#f97316', website:'facebook.com/DH-Tauranga', lat:-37.6950, lng:176.1620,
+    valueTags:[{label:'🥬 Fresh veg',level:'cheaper'},{label:'🌶️ Indian spices',level:'cheaper'},{label:'🧊 Frozen foods',level:'cheaper'}] },
+  { key:'vetro', name:'Vetro Tauranga', chain:'Local', area:'Central Tauranga', address:'Third Avenue, Tauranga', hours:'Mon-Fri 9am-5pm, Sat 9am-4pm', type:'Specialty Deli', tip:"Mediterranean foods, quality olive oils, nuts, pasta, cheese, wines. Premium but worth it for specialty items. Online shop at vetro-online.co.nz.", color:'#60a5fa', website:'vetro-online.co.nz', lat:-37.6881, lng:176.1642,
+    valueTags:[{label:'🫒 Olive oil',level:'worth'},{label:'🧀 Artisan cheese',level:'worth'},{label:'🍝 Quality pasta',level:'worth'}] },
+  { key:'tepunadeli', name:'Te Puna Deli', chain:'Local', area:'Tauriko / West', address:'Te Puna, Tauranga', hours:'Mon-Fri 8am-5pm, Sat-Sun 9am-3pm', type:'Deli / Cafe', tip:"Premium deli. Hungarian salamis made on-site. Stocks Mount Sourdough bread. NZ/imported cheeses, charcuterie, gift boxes.", color:'#60a5fa', website:'tepunadeli.co.nz', lat:-37.6312, lng:176.0534,
+    valueTags:[{label:'🥖 Mount Sourdough',level:'worth'},{label:'🧀 NZ cheeses',level:'worth'},{label:'🥩 Charcuterie',level:'worth'}] },
+  { key:'simplyorganic', name:'Simply Organic', chain:'Local', area:'Central Tauranga', address:'771 Cameron Road, Tauranga', hours:'Mon-Fri 9am-5pm, Sat 9am-3pm', type:'Organic Store', tip:"One-stop organic. Organic veg, grocery, health, bulk dry goods, frozen, herbs, spices. Online delivery NZ-wide. 8 car parks at rear.", color:'#10b981', website:'simplyorganic.co.nz', lat:-37.7012, lng:176.1598,
+    valueTags:[{label:'🌿 Organic veg',level:'worth'},{label:'🌾 Bulk dry goods',level:'worth'},{label:'🫚 Herbs & spices',level:'worth'}] },
+  { key:'beorganics', name:'Be Organics', chain:'Local', area:'Mt Maunganui', address:'At Mount Wholefoods, 13 Reed St, Mt Maunganui', hours:'Mon-Fri 7:30am-5:30pm, Sat-Sun 7:30am-4pm', type:'Organic', tip:"Certified organic NZ-grown produce. Sprouts, microgreens, kale, courgettes, eggs. Sold via Mount Wholefoods. Custom boxes from 300g.", color:'#10b981', website:'beorganics.co.nz', lat:-37.6434, lng:176.1876,
+    valueTags:[{label:'🌱 Sprouts & microgreens',level:'worth'},{label:'🥚 Organic eggs',level:'worth'},{label:'📦 Custom boxes',level:'worth'}] },
+  { key:'familypantry', name:'Family Pantry', chain:'Local', area:'Central Tauranga', address:'Online — familypantry.nz', hours:'Online orders, NZ-wide delivery', type:'Organic Bulk', tip:"Online organic bulk store. Certified organic grains, seeds, nuts, flours, dried fruit. Plastic-free packaging. Min order 200g. Donates near-expiry stock to charity.", color:'#10b981', website:'familypantry.nz', lat:null, lng:null,
+    valueTags:[{label:'🥜 Organic nuts',level:'cheaper'},{label:'🌾 Organic grains',level:'cheaper'},{label:'🫘 Lentils & beans',level:'cheaper'}] },
+  { key:'gourmettrader', name:'Gourmet Trader', chain:'Local', area:'Central Tauranga', address:'Cameron Road, Gate Pa', hours:'Mon-Fri 9am-5pm, Sat 10am-5pm', type:'Kitchenware / Gourmet', tip:"Expert kitchenware + gourmet sauces, spices and condiments. Not a grocery store — but the place for quality cooking tools and artisan pantry staples.", color:'#60a5fa', lat:-37.7074, lng:176.1612,
+    valueTags:[{label:'🍳 Cookware',level:'worth'},{label:'🫙 Artisan pantry',level:'worth'}] },
+  { key:'blackforest', name:'Blackforest Gourmet', chain:'Local', area:'Central Tauranga', address:'65 Chapel Street, Tauranga CBD', hours:'Mon-Sat 9am-4pm, Sun 10am-4pm', type:'European Butcher', tip:"German sausages, European smallgoods, cheeses, pate, salamis, smoked meats. Premium European-style. Online shop + NZ-wide delivery.", color:'#e879f9', website:'blackforestgourmet.co.nz', lat:-37.6897, lng:176.1668,
+    valueTags:[{label:'🌭 German sausages',level:'worth'},{label:'🧀 European cheese',level:'worth'},{label:'🥩 Smallgoods',level:'worth'}] },
+  { key:'merivale', name:'Merivale Butchery', chain:'Local', area:'South Tauranga', address:'1305 Cameron Road, Greerton', hours:'Mon-Fri 7am-5:30pm, Sat 7am-1pm', type:'Butcher', tip:"Traditional butcher. Known for Big Boy sausages (176g) — they make 600-1000kg/week. Beef, lamb, pork, chicken. Everything made in-store.", color:'#e879f9', lat:-37.7268, lng:176.1523,
+    valueTags:[{label:'🌭 Big Boy sausages',level:'worth'},{label:'🥩 In-store made',level:'worth'}] },
+  { key:'cherrywoodbutchery', name:'Cherrywood Butchery', chain:'Local', area:'North Tauranga', address:'Cherrywood Drive, Otumoetai', hours:'Mon-Fri 7am-6pm, Sat 7am-2pm', type:'Butcher', tip:"Traditional independent butcher. Quality cuts, gourmet items, everything made from scratch in-store.", color:'#e879f9', lat:-37.6821, lng:176.1398,
+    valueTags:[{label:'🥩 Fresh cuts',level:'worth'},{label:'🌭 House-made smallgoods',level:'worth'}] },
+  { key:'boerewors', name:'Boerewors NZ', chain:'Local', area:'Tauriko / West', address:'761 SH29, Tauriko (+ Mt Maunganui)', hours:'Mon-Fri 9am-5pm, Sat 9am-3pm', type:'Specialty Butcher', tip:"South African boerewors, biltong, drywors, Russian sausages. Family business. NZ-wide shipping Mon-Wed. Also at Mt Maunganui location.", color:'#e879f9', website:'boerewors.nz', lat:-37.7432, lng:176.0812,
+    valueTags:[{label:'🇿🇦 Boerewors',level:'worth'},{label:'🥩 Biltong & drywors',level:'worth'}] },
+  { key:'mountsourdough', name:'Mount Sourdough', chain:'Local', area:'Mt Maunganui', address:'Mount Maunganui (wholesale — at Te Puna Deli & stockists)', hours:'Available via stockists', type:'Bakery', tip:"Highly rated artisan sourdough bakery. Available at Te Puna Deli and other stockists around Tauranga.", color:'#fbbf24', website:'mountsourdough.com', lat:-37.6378, lng:176.1812,
+    valueTags:[{label:'🍞 Artisan sourdough',level:'worth'}] },
+  { key:'mountbutchery', name:'Mount Butchery & Deli', chain:'Local', area:'Mt Maunganui', address:'237 Maunganui Road, Mt Maunganui', hours:'Mon-Fri 7:30am-5:30pm, Sat 8am-2pm', type:'Butcher', tip:"Local butcher and deli in central Mount. Fresh meat and deli items.", color:'#e879f9', lat:-37.6321, lng:176.1892,
+    valueTags:[{label:'🥩 Fresh cuts',level:'worth'},{label:'🧀 Deli items',level:'worth'}] },
+  { key:'bobbysfish', name:"Bobby's Fresh Fish Market", chain:'Local', area:'Central Tauranga', address:'1 Dive Crescent, Tauranga 3110', hours:'Wed-Sun 8am-6pm', type:'Seafood', tip:"Fresh local seafood — fish, salmon, oysters, scallops, mussels. Much fresher and often cheaper than supermarket seafood counters. Closed Mon-Tue.", color:'#38bdf8', lat:-37.6891, lng:176.1748,
+    valueTags:[{label:'🐟 Fresh local fish',level:'cheaper'},{label:'🦪 Oysters & scallops',level:'cheaper'},{label:'🦐 Shellfish',level:'cheaper'}] },
 ];
 
-// ========== AREA DEFINITIONS ==========
+// ========== AREA DEFINITIONS for Route grouping ==========
 const AREAS = [
-  'Central Tauranga','North Tauranga','Bethlehem / North','Tauriko / West',
-  'South Tauranga','Pyes Pa / Lakes','Welcome Bay / South','Mt Maunganui','Papamoa',
+  'Central Tauranga',
+  'North Tauranga',
+  'Bethlehem / North',
+  'Tauriko / West',
+  'South Tauranga',
+  'Pyes Pa / Lakes',
+  'Welcome Bay / South',
+  'Mt Maunganui',
+  'Papamoa',
 ];
 
 // ========== SPECIALS ==========
@@ -92,6 +126,7 @@ function PlanPanel({ planToBuy, planToGo, onRemoveBuy, onRemoveGo, onClearAll })
 
   return (
     <>
+      {/* Floating button */}
       <button onClick={()=>setOpen(!open)} style={{
         position:'fixed', bottom:'max(24px, env(safe-area-inset-bottom))',
         right:16, zIndex:1000,
@@ -109,6 +144,7 @@ function PlanPanel({ planToBuy, planToGo, onRemoveBuy, onRemoveGo, onClearAll })
         )}
       </button>
 
+      {/* Slide-up panel */}
       {open && (
         <div style={{
           position:'fixed', bottom:0, left:0, right:0, zIndex:999,
@@ -159,6 +195,7 @@ function PlanPanel({ planToBuy, planToGo, onRemoveBuy, onRemoveGo, onClearAll })
                   })}
                 </div>
               )}
+
               {planToBuy.length > 0 && (
                 <div>
                   <div style={{ fontSize:11, fontWeight:600, color:C.t3, textTransform:'uppercase', letterSpacing:.6, marginBottom:8 }}>Items to buy ({planToBuy.length})</div>
@@ -180,6 +217,7 @@ function PlanPanel({ planToBuy, planToGo, onRemoveBuy, onRemoveGo, onClearAll })
         </div>
       )}
 
+      {/* Overlay to close */}
       {open && <div onClick={()=>setOpen(false)} style={{ position:'fixed', inset:0, zIndex:998, background:'rgba(0,0,0,0.4)' }} />}
     </>
   );
@@ -217,7 +255,7 @@ function CitySelector() {
   );
 }
 
-function NavTabs({ active, setActive }) {
+function NavTabs({ active, setActive, planCount }) {
   const tabs = [
     { id:'specials', label:'This Week', icon:'🏷️' },
     { id:'guide', label:'Store Guide', icon:'🗺️' },
@@ -230,17 +268,15 @@ function NavTabs({ active, setActive }) {
     <div className="nav-tabs" style={{
       display:'flex', gap:3, background:C.sf, borderRadius:12,
       padding:4, border:'1px solid '+C.sb,
-      overflowX:'auto',
-      WebkitOverflowScrolling:'touch',
-      scrollbarWidth:'none',
-      msOverflowStyle:'none',
+      overflowX:'auto', WebkitOverflowScrolling:'touch',
+      scrollbarWidth:'none', msOverflowStyle:'none',
     }}>
       {tabs.map(t => (
         <button key={t.id} onClick={() => setActive(t.id)} style={{
           flex:1, padding:'9px 4px', borderRadius:10, border:'none', cursor:'pointer',
           fontSize:11, fontWeight:600, whiteSpace:'nowrap',
           background: active===t.id ? C.ac : 'transparent',
-          color: active===t.id ? 'white' : C.t2, transition:'all 0.2s',
+          color: active===t.id ? 'white' : C.t2, transition:'all 0.2s', position:'relative',
         }}>{t.icon} {t.label}</button>
       ))}
     </div>
@@ -351,7 +387,23 @@ function StoreGuide({ planToGo, onToggleGo }) {
         </div>
         {store.address && <div style={{ color:C.t2, fontSize:12, marginBottom:4 }}>📍 {store.address}</div>}
         {store.hours && <div style={{ color:C.t3, fontSize:11, marginBottom:4 }}>🕐 {store.hours}</div>}
+        {store.website && <div style={{ color:C.t3, fontSize:11, marginBottom:4 }}>🔗 <a href={'https://'+store.website} target="_blank" rel="noopener" style={{ color:C.t3 }}>{store.website}</a></div>}
         {store.type && <span style={{ fontSize:11, color:C.t3, background:C.ad, padding:'2px 8px', borderRadius:12, display:'inline-block', marginBottom:6 }}>{store.type} · {store.area}</span>}
+        {store.valueTags && store.valueTags.length > 0 && (
+          <div style={{ display:'flex', flexWrap:'wrap', gap:5, marginBottom:8, marginTop:4 }}>
+            {store.valueTags.map((tag, i) => (
+              <span key={i} style={{
+                fontSize:11, fontWeight:600, padding:'3px 9px', borderRadius:20,
+                background: tag.level === 'cheaper' ? 'rgba(16,185,129,0.15)' : 'rgba(234,179,8,0.1)',
+                border: tag.level === 'cheaper' ? '1px solid rgba(16,185,129,0.35)' : '1px solid rgba(234,179,8,0.3)',
+                color: tag.level === 'cheaper' ? '#6ee7b7' : '#fbbf24',
+              }}>
+                {tag.label}
+                {tag.level === 'cheaper' && <span style={{ marginLeft:4, fontSize:10, opacity:0.8 }}>✓ beats supermarket</span>}
+              </span>
+            ))}
+          </div>
+        )}
         <div style={{ color:C.yl, fontSize:13, marginTop:6, lineHeight:1.5, background:C.yld, padding:'8px 10px', borderRadius:8, border:'1px solid '+C.ylb }}>
           💡 {store.tip}
         </div>
@@ -383,7 +435,11 @@ function StoreGuide({ planToGo, onToggleGo }) {
       </Section>
 
       <Section id="local" title={`Local Stores (${localStores.length})`} icon="🏘️">
-        <p style={{ color:C.t2, fontSize:13, marginBottom:10, lineHeight:1.5 }}>These local shops often beat supermarket prices. Worth the trip!</p>
+        <p style={{ color:C.t2, fontSize:13, marginBottom:10, lineHeight:1.5 }}>These local shops often beat supermarket prices on specific items. Worth the trip!</p>
+        <div style={{ display:'flex', gap:8, flexWrap:'wrap', marginBottom:14 }}>
+          <span style={{ fontSize:11, fontWeight:600, padding:'3px 10px', borderRadius:20, background:'rgba(16,185,129,0.15)', border:'1px solid rgba(16,185,129,0.35)', color:'#6ee7b7' }}>🟢 Green = beats supermarket price</span>
+          <span style={{ fontSize:11, fontWeight:600, padding:'3px 10px', borderRadius:20, background:'rgba(234,179,8,0.1)', border:'1px solid rgba(234,179,8,0.3)', color:'#fbbf24' }}>🟡 Yellow = worth it for this category</span>
+        </div>
         {localStores.map((s,i) => <StoreCard key={i} store={s} />)}
       </Section>
 
@@ -408,7 +464,7 @@ function StoreGuide({ planToGo, onToggleGo }) {
 }
 
 // ========== ROUTE PLANNER TAB ==========
-function RoutePlannerTab({ planToGo }) {
+function RoutePlannerTab({ planToGo, onToggleGo }) {
   const [homeAddr, setHomeAddr] = useState('');
   const [selected, setSelected] = useState(new Set());
   const [returnHome, setReturnHome] = useState(true);
@@ -663,7 +719,7 @@ function RecipesTab() {
 }
 
 // ========== CONTRIBUTE TAB ==========
-const KETE_EMAIL = 'YOUR_EMAIL@gmail.com';
+const KETE_EMAIL = 'baroquepearllover@gmail.com';
 
 function ContributeTab() {
   const [form, setForm] = useState({ storeName:'', storeType:'butcher', city:'', location:'', website:'', deals:'', name:'' });
@@ -813,7 +869,7 @@ export default function App() {
           <div style={{ marginTop:8, fontSize:11, color:C.t3 }}>📅 Specials updated: 1 Jun 2026 · 📊 {SPECIALS.length} deals · 🏪 {ALL_STORES.length} stores</div>
         </div>
         <CitySelector />
-        <div style={{ marginBottom:16 }}><NavTabs active={tab} setActive={setTab} /></div>
+        <div style={{ marginBottom:16 }}><NavTabs active={tab} setActive={setTab} planCount={planToBuy.length+planToGo.size} /></div>
         {tab==='specials' && <SpecialsTab planToBuy={planToBuy} onAddBuy={addBuy} planToGo={planToGo} onToggleGo={toggleGo} />}
         {tab==='guide' && <StoreGuide planToGo={planToGo} onToggleGo={toggleGo} />}
         {tab==='route' && <RoutePlannerTab planToGo={planToGo} onToggleGo={toggleGo} />}
@@ -821,7 +877,7 @@ export default function App() {
         {tab==='contribute' && <ContributeTab />}
         {tab==='feedback' && <FeedbackTab />}
         <div style={{ textAlign:'center', marginTop:36, fontSize:11, color:'rgba(16,185,129,0.3)' }}>
-          <p>Kete Tauranga v0.9 · Built with 🧺 in Tauranga</p>
+          <p>Kete Tauranga v1.0 · Built with 🧺 in Tauranga</p>
           <p style={{ marginTop:4 }}>Prices vary. Use <a href="https://grocer.nz" target="_blank" rel="noopener" style={{ color:'rgba(16,185,129,0.5)', textDecoration:'underline' }}>Grocer.nz</a> for real-time comparison.</p>
         </div>
       </div>
