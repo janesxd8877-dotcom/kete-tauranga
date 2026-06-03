@@ -876,7 +876,7 @@ export default function App() {
           <div style={{ fontSize:13, color:C.t3, fontWeight:600, letterSpacing:3, textTransform:'uppercase', marginBottom:6 }}>🧺 Kete Tauranga</div>
           <h1 style={{ fontFamily:"'Fraunces',Georgia,serif", fontSize:32, fontWeight:400, color:C.t1, lineHeight:1.2, marginBottom:6 }}>Eat well. Spend smart.</h1>
           <p style={{ color:C.t2, fontSize:14 }}>Your local guide to saving on groceries in Tauranga</p>
-          <div style={{ marginTop:8, fontSize:11, color:C.t3 }}>📅 Specials updated: 1 Jun 2026 · 📊 {SPECIALS.length} deals · 🏪 {ALL_STORES.length} stores</div>
+          <div style={{ marginTop:8, fontSize:11, color:C.t3 }}>📅 Specials updated: 3 Jun 2026 · 📊 {SPECIALS.length} deals · 🏪 {ALL_STORES.length} stores</div>
         </div>
         <CitySelector />
         <div style={{ marginBottom:16 }}><NavTabs active={tab} setActive={setTab} planCount={planToBuy.length+planToGo.size} /></div>
