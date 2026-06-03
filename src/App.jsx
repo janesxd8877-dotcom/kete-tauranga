@@ -94,26 +94,33 @@ const AREAS = [
   'Papamoa',
 ];
 
-// ========== SPECIALS ==========
+// ========== SPECIALS (Updated 2026-06-03) ==========
 const SPECIALS = [
-  { item:"Chicken Drumsticks", price:4.99, unit:"kg", storeKey:'pns-cameron', store:"Pak'nSave", was:7.99 },
-  { item:"Beef Mince 500g", price:5.99, unit:"pack", storeKey:'pns-cameron', store:"Pak'nSave", was:8.49 },
-  { item:"Pork Mince 500g", price:4.99, unit:"pack", storeKey:'pns-tauriko', store:"Pak'nSave", was:7.49 },
-  { item:"Rice 5kg (Pams)", price:7.99, unit:"bag", storeKey:'pns-cameron', store:"Pak'nSave", was:11.99 },
-  { item:"Potatoes 1.5kg", price:2.49, unit:"bag", storeKey:'pns-cameron', store:"Pak'nSave", was:3.99 },
-  { item:"Bread (Pams white)", price:1.49, unit:"loaf", storeKey:'pns-tauriko', store:"Pak'nSave", was:2.49 },
-  { item:"Frozen Veg 1kg", price:2.99, unit:"bag", storeKey:'pns-cameron', store:"Pak'nSave", was:4.49 },
-  { item:"Canned Tomatoes", price:0.89, unit:"can", storeKey:'pns-tauriko', store:"Pak'nSave", was:1.39 },
-  { item:"Whole Chicken", price:8.99, unit:"kg", storeKey:'ww-bethlehem', store:"Woolworths", was:12.99 },
-  { item:"Salmon Portions 400g", price:10.99, unit:"pack", storeKey:'ww-bayfair', store:"Woolworths", was:15.99 },
-  { item:"Kumara 1kg", price:2.99, unit:"kg", storeKey:'ww-papamoa', store:"Woolworths", was:4.99 },
-  { item:"Cheese 1kg block", price:9.99, unit:"block", storeKey:'ww-bethlehem', store:"Woolworths", was:13.99 },
-  { item:"Yoghurt 1kg (Anchor)", price:4.49, unit:"tub", storeKey:'ww-bayfair', store:"Woolworths", was:6.49 },
-  { item:"Bacon 250g", price:4.49, unit:"pack", storeKey:'ww-papamoa', store:"Woolworths", was:6.99 },
-  { item:"Lamb Shoulder Chops", price:16.99, unit:"kg", storeKey:'nw-gatepa', store:"New World", was:26.99 },
-  { item:"Butter 500g (Anchor)", price:4.99, unit:"block", storeKey:'nw-brookfield', store:"New World", was:6.49 },
-  { item:"Eggs 12pk (free range)", price:8.99, unit:"doz", storeKey:'nw-gatepa', store:"New World", was:11.99 },
-  { item:"Broccoli", price:1.99, unit:"head", storeKey:'nw-mount', store:"New World", was:3.49 },
+  // MEAT & POULTRY
+  { item:"Chicken Breast Skinless 1kg", price:12.90, unit:"kg", storeKey:'ww-bethlehem', store:"Woolworths", was:17.40 },
+  { item:"Whole Chicken Sage & Onion ~1.3kg", price:14.90, unit:"pack", storeKey:'ww-bethlehem', store:"Woolworths", was:18.90 },
+  { item:"Hellers Pork Sausages 6pk", price:8.90, unit:"pack", storeKey:'ww-bethlehem', store:"Woolworths", was:12.00 },
+  { item:"Beef Mince 500g", price:8.39, unit:"pack", storeKey:'pns-tauriko', store:"Pak'nSave", was:11.00 },
+  { item:"Garlic & Herb Sausages 400g", price:8.70, unit:"pack", storeKey:'ww-bethlehem', store:"Woolworths", was:12.00 },
+  { item:"Hellers Manuka Smoked Bacon 600g", price:9.99, unit:"pack", storeKey:'pns-tauriko', store:"Pak'nSave", was:13.99 },
+
+  // FRESH PRODUCE
+  { item:"Avocado", price:2.89, unit:"each", storeKey:'pns-tauriko', store:"Pak'nSave", was:3.99 },
+  { item:"Brushed Agria Potatoes 3kg", price:8.49, unit:"bag", storeKey:'nw-gatepa', store:"New World", was:10.99 },
+  { item:"Brown Onions", price:1.99, unit:"kg", storeKey:'ww-bethlehem', store:"Woolworths", was:2.99 },
+  { item:"Sliced Mushrooms 200g", price:3.49, unit:"pack", storeKey:'nw-gatepa', store:"New World", was:4.99 },
+  { item:"Iceberg Lettuce", price:3.49, unit:"head", storeKey:'nw-gatepa', store:"New World", was:4.49 },
+
+  // DAIRY & EGGS
+  { item:"Eggs 12pk Size 7 (Henergy)", price:9.89, unit:"doz", storeKey:'nw-gatepa', store:"New World", was:13.99 },
+  { item:"Mainland Butter 375g", price:12.99, unit:"block", storeKey:'nw-gatepa', store:"New World", was:16.49 },
+  { item:"Rolling Meadow Tasty Cheese 500g", price:9.99, unit:"pack", storeKey:'nw-gatepa', store:"New World", was:20.00 },
+  { item:"Camembert Cheese 110g", price:3.69, unit:"pack", storeKey:'nw-gatepa', store:"New World", was:5.99 },
+
+  // PANTRY
+  { item:"Pams Colby Cheese 500g", price:7.49, unit:"pack", storeKey:'pns-tauriko', store:"Pak'nSave", was:10.00 },
+  { item:"Tegel Free Range Crunchy Chicken 800g", price:12.79, unit:"pack", storeKey:'pns-tauriko', store:"Pak'nSave", was:17.99 },
+  { item:"Mango (each)", price:3.49, unit:"each", storeKey:'ww-bethlehem', store:"Woolworths", was:4.99 },
 ];
 
 // ========== HELPERS ==========
