@@ -1,16 +1,34 @@
-# React + Vite
+# 🧺 Kete Tauranga
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Spend smarter in Tauranga — your free community grocery guide.**
 
-Currently, two official plugins are available:
+Kete Tauranga helps locals find the best grocery deals across supermarkets and independent stores in Tauranga & the Bay of Plenty.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What's Inside
 
-## React Compiler
+- **Weekly Specials** — Curated best deals from Pak'nSave, Woolworths & New World, updated every week
+- **Local Store Directory** — Butchers, Asian groceries, bulk stores, farmers markets & more with value tags
+- **Smart Shopping Route** — Plan your trip across multiple stores with Google Maps integration
+- **NZ Recipe Links** — Cook around what's on special this week
+- **Budget Tips** — Practical savings tips from the Tauranga community
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Why Kete?
 
-## Expanding the ESLint configuration
+NZ shoppers already know individual tricks — Kete brings it all together in one place. We focus on **local independent stores** as a complement to supermarket-focused tools like Grocer.nz.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+No ads. No data collection. No commercial intent. Just a community tool built by a local.
+
+## Tech
+
+- React + Vite
+- Hosted on GitHub Pages
+- Zero backend — fully static
+
+## Contributing
+
+Know a great local store or spotted a deal? Use the Contribute feature in the app or email **baroquepearllover@gmail.com**.
+
+## Links
+
+- 🌐 [Kete Tauranga](https://janesxd8877-dotcom.github.io/kete-tauranga/)
+- 💬 [r/Tauranga](https://reddit.com/r/Tauranga)
