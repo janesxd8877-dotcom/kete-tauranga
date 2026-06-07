@@ -96,33 +96,31 @@ const AREAS = [
   'Papamoa',
 ];
 
-// ========== SPECIALS (Updated 2026-06-03) ==========
+// ========== SPECIALS (Updated 2026-06-08) ==========
 const SPECIALS = [
-  // MEAT & POULTRY
-  { item:"Chicken Breast Skinless 1kg", price:12.90, unit:"kg", storeKey:'ww-bethlehem', store:"Woolworths", was:17.40 },
-  { item:"Whole Chicken Sage & Onion ~1.3kg", price:14.90, unit:"pack", storeKey:'ww-bethlehem', store:"Woolworths", was:18.90 },
-  { item:"Hellers Pork Sausages 6pk", price:8.90, unit:"pack", storeKey:'ww-bethlehem', store:"Woolworths", was:12.00 },
-  { item:"Beef Mince 500g", price:8.39, unit:"pack", storeKey:'pns-tauriko', store:"Pak'nSave", was:11.00 },
-  { item:"Garlic & Herb Sausages 400g", price:8.70, unit:"pack", storeKey:'ww-bethlehem', store:"Woolworths", was:12.00 },
-  { item:"Hellers Manuka Smoked Bacon 600g", price:9.99, unit:"pack", storeKey:'pns-tauriko', store:"Pak'nSave", was:13.99 },
+  // ---- Woolworths ----
+  { item:"NZ Pork Leg Roast Bone In", price:8.99, unit:"kg", storeKey:'ww-bethlehem', store:"Woolworths", was:12.95 },
+  { item:"Alpine Cheese Colby 1kg", price:12.90, unit:"block", storeKey:'ww-bethlehem', store:"Woolworths", was:16.49 },
+  { item:"Auntie Dai Dumplings 500g", price:5.99, unit:"pack", storeKey:'ww-bayfair', store:"Woolworths", was:11.99 },
+  { item:"Tegel Chicken Nuggets 750g", price:9.80, unit:"pack", storeKey:'ww-papamoa', store:"Woolworths", was:16.49 },
+  { item:"Sealord Hoki Lemon Pepper 425g", price:6.90, unit:"pack", storeKey:'ww-bethlehem', store:"Woolworths", was:9.50 },
+  { item:"Fresh Apples Rose", price:3.90, unit:"kg", storeKey:'ww-bayfair', store:"Woolworths", was:5.50 },
 
-  // FRESH PRODUCE
-  { item:"Avocado", price:2.89, unit:"each", storeKey:'pns-tauriko', store:"Pak'nSave", was:3.99 },
-  { item:"Brushed Agria Potatoes 3kg", price:8.49, unit:"bag", storeKey:'nw-gatepa', store:"New World", was:10.99 },
-  { item:"Brown Onions", price:1.99, unit:"kg", storeKey:'ww-bethlehem', store:"Woolworths", was:2.99 },
-  { item:"Sliced Mushrooms 200g", price:3.49, unit:"pack", storeKey:'nw-gatepa', store:"New World", was:4.99 },
-  { item:"Iceberg Lettuce", price:3.49, unit:"head", storeKey:'nw-gatepa', store:"New World", was:4.49 },
-
-  // DAIRY & EGGS
-  { item:"Eggs 12pk Size 7 (Henergy)", price:9.89, unit:"doz", storeKey:'nw-gatepa', store:"New World", was:13.99 },
-  { item:"Mainland Butter 375g", price:12.99, unit:"block", storeKey:'nw-gatepa', store:"New World", was:16.49 },
-  { item:"Rolling Meadow Tasty Cheese 500g", price:9.99, unit:"pack", storeKey:'nw-gatepa', store:"New World", was:20.00 },
-  { item:"Camembert Cheese 110g", price:3.69, unit:"pack", storeKey:'nw-gatepa', store:"New World", was:5.99 },
-
-  // PANTRY
+  // ---- Pak'nSave ----
+  { item:"Broccoli", price:2.25, unit:"each", storeKey:'pns-tauriko', store:"Pak'nSave", was:3.49 },
+  { item:"Chicken Nibbles", price:6.89, unit:"kg", storeKey:'pns-tauriko', store:"Pak'nSave", was:9.99 },
+  { item:"Pork Sirloin Steak", price:16.89, unit:"kg", storeKey:'pns-tauriko', store:"Pak'nSave", was:22.99 },
+  { item:"Hellers Manuka Bacon 800g", price:12.89, unit:"pack", storeKey:'pns-cameron', store:"Pak'nSave", was:17.99 },
   { item:"Pams Colby Cheese 500g", price:7.49, unit:"pack", storeKey:'pns-tauriko', store:"Pak'nSave", was:10.00 },
-  { item:"Tegel Free Range Crunchy Chicken 800g", price:12.79, unit:"pack", storeKey:'pns-tauriko', store:"Pak'nSave", was:17.99 },
-  { item:"Mango (each)", price:3.49, unit:"each", storeKey:'ww-bethlehem', store:"Woolworths", was:4.99 },
+  { item:"Chesdale Cheese Slices 250g", price:3.49, unit:"pack", storeKey:'pns-cameron', store:"Pak'nSave", was:4.99 },
+
+  // ---- New World ----
+  { item:"Pams Washed Carrots 1.5kg", price:3.49, unit:"bag", storeKey:'nw-brookfield', store:"New World", was:4.99 },
+  { item:"NZ Pork Shoulder", price:10.99, unit:"kg", storeKey:'nw-gatepa', store:"New World", was:14.99 },
+  { item:"Pams Roasting Potatoes 2.5kg", price:6.99, unit:"bag", storeKey:'nw-gatepa', store:"New World", was:9.99 },
+  { item:"Jazz Apples 1.5kg", price:5.99, unit:"bag", storeKey:'nw-mount', store:"New World", was:7.99 },
+  { item:"NZ Chicken Drumsticks", price:5.99, unit:"kg", storeKey:'nw-gatepa', store:"New World", was:8.99 },
+  { item:"Mandarins", price:4.49, unit:"kg", storeKey:'nw-brookfield', store:"New World", was:5.49 },
 ];
 
 // ========== HELPERS ==========
@@ -878,7 +876,8 @@ export default function App() {
           <div style={{ fontSize:13, color:C.t3, fontWeight:600, letterSpacing:3, textTransform:'uppercase', marginBottom:6 }}>🧺 Kete Tauranga</div>
           <h1 style={{ fontFamily:"'Fraunces',Georgia,serif", fontSize:32, fontWeight:400, color:C.t1, lineHeight:1.2, marginBottom:6 }}>Eat well. Spend smart.</h1>
           <p style={{ color:C.t2, fontSize:14 }}>Your local guide to saving on groceries in Tauranga</p>
-          <div style={{ marginTop:8, fontSize:11, color:C.t3 }}>📅 Specials updated: 3 Jun 2026 · 📊 {SPECIALS.length} deals · 🏪 {ALL_STORES.length} stores</div>
+          <div style={{ marginTop:8, fontSize:11, color:C.t3 }}>📅 Specials updated: 8 Jun 2026 · 📊 {SPECIALS.length} deals · 🏪 {ALL_STORES.length} stores</div>
+          <div style={{ marginTop:4, fontSize:11, color:C.t3 }}>🌐 <a href="https://janesxd8877-dotcom.github.io/kete-tauranga/" target="_blank" rel="noopener noreferrer" style={{ color:'#10b981', textDecoration:'none' }}>janesxd8877-dotcom.github.io/kete-tauranga</a></div>
         </div>
         <CitySelector />
         <div style={{ marginBottom:16 }}><NavTabs active={tab} setActive={setTab} planCount={planToBuy.length+planToGo.size} /></div>
