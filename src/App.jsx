@@ -9,16 +9,11 @@ const ALL_STORES = [
   // ---- Pak'nSave ----
   { key:'pns-cameron', name:"Pak'nSave Cameron Rd", chain:"Pak'nSave", area:'Central Tauranga', address:'476 Cameron Road, Tauranga 3110', hours:'8am-9pm, 7 days', type:'Budget Supermarket', tip:"Cheapest overall. Go early morning or after 6:30pm. Fuel station on-site. Club+ from June 2026.", color:'#eab308', lat:-37.6931, lng:176.1654 },
   { key:'pns-tauriko', name:"Pak'nSave Tauriko", chain:"Pak'nSave", area:'Tauriko / West', address:'2 Taurikura Drive, Tauriko (Tauranga Crossing)', hours:'7am-9pm, 7 days', type:'Budget Supermarket', tip:"Newer, less crowded. The Warehouse & Noel Leeming next door. Good car park.", color:'#eab308', lat:-37.7412, lng:176.0847 },
-  { key:'pns-papamoa', name:"Pak'nSave Papamoa", chain:"Pak'nSave", area:'Papamoa', address:'30 Gravatt Road, Fashion Island, Papamoa', hours:'7am-9pm, 7 days', type:'Budget Supermarket', tip:"Newest Pak'nSave in Tauranga. Fashion Island shopping centre. Great for Papamoa/Golden Sands residents. Club+ member prices.", color:'#eab308', lat:-37.7115, lng:176.2821 },
   // ---- New World ----
   { key:'nw-gatepa', name:'New World Gate Pa', chain:'New World', area:'Central Tauranga', address:'948 Cameron Road, Gate Pa, Tauranga 3112', hours:'7am-9pm, 7 days', type:'Premium Supermarket', tip:"Best bakery and deli. Only buy specials or Club+ deals — shelf prices are higher.", color:'#ef4444', lat:-37.7138, lng:176.1427 },
   { key:'nw-brookfield', name:'New World Brookfield', chain:'New World', area:'North Tauranga', address:'89 Bellevue Road, Brookfield, Tauranga', hours:'7am-9pm, 7 days', type:'Premium Supermarket', tip:"Quieter than Gate Pa. Good produce section. Worth checking weekly club specials.", color:'#ef4444', lat:-37.6732, lng:176.1412 },
   { key:'nw-mount', name:'New World Mt Maunganui', chain:'New World', area:'Mt Maunganui', address:'Cnr Tweed St & Maunganui Rd, Mt Maunganui 3116', hours:'7am-9pm, 7 days', type:'Premium Supermarket', tip:"Convenient for Mount residents. Smaller store — better for top-up shops.", color:'#ef4444', lat:-37.6378, lng:176.1812 },
-  { key:'nw-papamoa', name:'New World Papamoa', chain:'New World', area:'Papamoa', address:'250 Papamoa Beach Road, Papamoa Plaza', hours:'7am-9pm, 7 days', type:'Premium Supermarket', tip:"Papamoa's premium option. Excellent produce and deli. Check Club specials for value.", color:'#ef4444', lat:-37.7089, lng:176.2954 },
   // ---- Woolworths ----
-  { key:'ww-tauranga', name:'Woolworths Tauranga', chain:'Woolworths', area:'Central Tauranga', address:'618 Cameron Road, Tauranga 3112', hours:'7am-10pm, 7 days', type:'Mid-range Supermarket', tip:"Central CBD location. Everyday Rewards points. Good for city workers doing a quick shop. Check weekly half-price deals.", color:'#22c55e', lat:-37.6872, lng:176.1654 },
-  { key:'ww-frasercove', name:'Woolworths Fraser Cove', chain:'Woolworths', area:'South Tauranga', address:'Fraser Cove Shopping Centre, Tauranga', hours:'7am-10pm, 7 days', type:'Mid-range Supermarket', tip:"Serves Greerton and Merivale. Everyday Rewards points. Good car parking. Check weekly half-price deals.", color:'#22c55e', lat:-37.7001, lng:176.1423 },
-  { key:'ww-buretapark', name:'Woolworths Bureta Park', chain:'Woolworths', area:'North Tauranga', address:'Bureta Park Shopping Centre, Bureta Road, Otumoetai', hours:'7am-10pm, 7 days', type:'Mid-range Supermarket', tip:"Handy for Otumoetai and Bureta residents. Everyday Rewards points. Check weekly half-price deals.", color:'#22c55e', lat:-37.6798, lng:176.1356 },
   { key:'ww-bethlehem', name:'Woolworths Bethlehem', chain:'Woolworths', area:'Bethlehem / North', address:'19 Bethlehem Road, Bethlehem, Tauranga', hours:'7am-10pm, 7 days', type:'Mid-range Supermarket', tip:"Everyday Rewards points. Longer hours than most. Check weekly half-price deals.", color:'#22c55e', lat:-37.6598, lng:176.1213 },
   { key:'ww-bayfair', name:'Woolworths Bayfair', chain:'Woolworths', area:'Mt Maunganui', address:'1-19 Girven Road, Mt Maunganui (Bayfair Mall)', hours:'7am-10pm, 7 days', type:'Mid-range Supermarket', tip:"Large format inside Bayfair. Good for weekly shop if you're in the Mount.", color:'#22c55e', lat:-37.6748, lng:176.2231 },
   { key:'ww-papamoa', name:'Woolworths Papamoa', chain:'Woolworths', area:'Papamoa', address:'7 Gravatt Road, Papamoa', hours:'7am-10pm, 7 days', type:'Mid-range Supermarket', tip:"Convenient for Papamoa residents. Check Everyday Rewards for personalised half-price deals.", color:'#22c55e', lat:-37.7115, lng:176.2821 },
@@ -96,37 +91,29 @@ const AREAS = [
   'Papamoa',
 ];
 
-// ========== SPECIALS (Updated 2026-06-15) ==========
-// was prices: WW/NW = from confirmed "Save $X" on-page; PNS = estimated vs typical NW/WW regular; NW Club+ = from on-page non-member price
+// ========== SPECIALS — updated 22 Jun 2026 ==========
 const SPECIALS = [
-  // ---- Woolworths (confirmed Save amounts from weekly specials) ----
-  { item:"WW NZ Chicken Breast Boneless Skinless", price:13.80, unit:"kg", storeKey:'ww-tauranga', store:"Woolworths", was:16.80 },
-  { item:"WW NZ Corned Beef Silverside Grass Fed", price:16.90, unit:"kg", storeKey:'ww-bethlehem', store:"Woolworths", was:20.35 },
-  { item:"Tegel Free Range Chicken Drumsticks 4pk 485g", price:8.80, unit:"pack", storeKey:'ww-bayfair', store:"Woolworths", was:11.95 },
-  { item:"Hellers Sausages Precooked 900g 12pk", price:9.00, unit:"pack", storeKey:'ww-frasercove', store:"Woolworths", was:11.50 },
-  { item:"First Light Sausages Wagyu Kiwi 410g", price:11.00, unit:"pack", storeKey:'ww-buretapark', store:"Woolworths", was:14.35 },
-  { item:"Woolworths Sausages Angus Beef 450g Tray", price:9.90, unit:"pack", storeKey:'ww-papamoa', store:"Woolworths", was:13.35 },
-  { item:"Impossible Plant Based Burger Patties 2pk", price:10.00, unit:"pack", storeKey:'ww-bethlehem', store:"Woolworths", was:15.00 },
-  { item:"Hellers Saveloys Classic 1kg", price:12.50, unit:"pack", storeKey:'ww-bayfair', store:"Woolworths", was:15.95 },
-
-  // ---- Pak'nSave (Extra Low everyday prices vs typical NW/WW regular) ----
-  { item:"NZ Chicken Drumsticks", price:4.89, unit:"kg", storeKey:'pns-cameron', store:"Pak'nSave", was:7.99 },
-  { item:"NZ Skinless Chicken Thigh Fillet", price:15.79, unit:"kg", storeKey:'pns-tauriko', store:"Pak'nSave", was:19.99 },
-  { item:"Beef Corned Silverside", price:14.79, unit:"kg", storeKey:'pns-cameron', store:"Pak'nSave", was:20.35 },
-  { item:"Pams Iceberg Lettuce 1pk", price:2.49, unit:"ea", storeKey:'pns-tauriko', store:"Pak'nSave", was:3.99 },
-  { item:"Rolling Meadow Butter 500g", price:8.90, unit:"ea", storeKey:'pns-papamoa', store:"Pak'nSave", was:11.49 },
-  { item:"NZ Celery", price:2.00, unit:"ea", storeKey:'pns-cameron', store:"Pak'nSave", was:3.50 },
-
-  // ---- New World (Super Saver + Club+ deals — NW Brookfield) ----
-  { item:"NZ Skinless Chicken Breast", price:12.99, unit:"kg", storeKey:'nw-brookfield', store:"New World", was:16.80 },
-  { item:"NZ Lamb Shoulder Chops", price:18.99, unit:"kg", storeKey:'nw-gatepa', store:"New World", was:24.99 },
-  { item:"NZ Beef Rump Steak", price:26.99, unit:"kg", storeKey:'nw-brookfield', store:"New World", was:34.99 },
-  { item:"Beehive Shaved Champagne Ham 100g", price:4.39, unit:"ea", storeKey:'nw-brookfield', store:"New World", was:5.19, note:"Club+ price" },
-  { item:"Hellers Shaved Champagne Ham 200g", price:5.99, unit:"ea", storeKey:'nw-brookfield', store:"New World", was:7.00, note:"Club+ price" },
-  { item:"Pams Shoulder Bacon 400g", price:6.99, unit:"ea", storeKey:'nw-brookfield', store:"New World", was:7.49, note:"Club+ price" },
-  { item:"Verkerks Italian Salami 100g", price:3.99, unit:"ea", storeKey:'nw-brookfield', store:"New World", was:4.39, note:"Club+ price" },
-  { item:"The Collective Epic Greek Yoghurt 900g", price:8.29, unit:"ea", storeKey:'nw-brookfield', store:"New World", was:9.19, note:"Club+ price" },
-  { item:"Anchor Butter 500g", price:9.29, unit:"ea", storeKey:'nw-brookfield', store:"New World", was:11.49, note:"Club+ price" },
+  // Pak'nSave — 22 Jun 2026 (Extra Low pricing; "was" prices are estimates)
+  { item:"Broccoli (3 for $5)", price:1.67, unit:"ea", storeKey:'pns-cameron', store:"Pak'nSave", was:2.49 },
+  { item:"NZ Pork Spare Ribs", price:5.00, unit:"kg", storeKey:'pns-tauriko', store:"Pak'nSave", was:8.99 },
+  { item:"NZ Chicken Thigh Cutlets", price:9.99, unit:"kg", storeKey:'pns-cameron', store:"Pak'nSave", was:13.99 },
+  { item:"NZ Pork Mince", price:13.89, unit:"kg", storeKey:'pns-tauriko', store:"Pak'nSave", was:17.99 },
+  { item:"Anchor Butter 500g", price:8.99, unit:"pack", storeKey:'pns-cameron', store:"Pak'nSave", was:10.99 },
+  { item:"Fresh 'n Fruity Greek Natural 1kg", price:6.49, unit:"tub", storeKey:'pns-tauriko', store:"Pak'nSave", was:8.49 },
+  // Woolworths — 22 Jun 2026
+  { item:"Beef Mince Grass Fed 1kg", price:16.99, unit:"tray", storeKey:'ww-bethlehem', store:"Woolworths", was:21.99 },
+  { item:"Sealord Hoki Fillets Crumb 420g", price:7.60, unit:"pack", storeKey:'ww-bayfair', store:"Woolworths", was:9.50 },
+  { item:"Farmer Brown Eggs Cage Free 12pk", price:8.50, unit:"pack", storeKey:'ww-papamoa', store:"Woolworths", was:10.99 },
+  { item:"Mainland Mozzarella Grated 375g", price:8.90, unit:"bag", storeKey:'ww-bethlehem', store:"Woolworths", was:10.42 },
+  { item:"Fresh 'n' Fruity Greek Yoghurt 6pk", price:5.50, unit:"pack", storeKey:'ww-bayfair', store:"Woolworths", was:6.50 },
+  { item:"Weet-Bix Cereal 1.2kg", price:7.99, unit:"box", storeKey:'ww-papamoa', store:"Woolworths", was:10.98 },
+  // New World — 22 Jun 2026 (Club+ prices marked)
+  { item:"NZ Chicken Tenderloins", price:17.99, unit:"kg", storeKey:'nw-gatepa', store:"New World", was:24.99 },
+  { item:"NZ Beef Brisket", price:19.99, unit:"kg", storeKey:'nw-brookfield', store:"New World", was:26.99 },
+  { item:"Avocado", price:1.49, unit:"each", storeKey:'nw-mount', store:"New World", was:2.49 },
+  { item:"Kalo Greek Yoghurt 800g (Club+)", price:6.99, unit:"tub", storeKey:'nw-gatepa', store:"New World", was:9.29 },
+  { item:"Otaika Valley Free Range Eggs 12pk (Club+)", price:11.29, unit:"pack", storeKey:'nw-brookfield', store:"New World", was:12.59 },
+  { item:"Ornelle Camembert 110g (Club+)", price:3.69, unit:"each", storeKey:'nw-mount', store:"New World", was:4.89 },
 ];
 
 // ========== HELPERS ==========
@@ -144,8 +131,7 @@ function PlanPanel({ planToBuy, planToGo, onRemoveBuy, onRemoveGo, onClearAll })
     <>
       {/* Floating button */}
       <button onClick={()=>setOpen(!open)} style={{
-        position:'fixed', bottom:'max(24px, env(safe-area-inset-bottom))',
-        right:16, zIndex:1000,
+        position:'fixed', bottom:24, right:16, zIndex:1000,
         background:'linear-gradient(135deg,#059669,#10b981)',
         border:'none', borderRadius:24, padding:'11px 18px',
         color:'white', fontWeight:700, fontSize:13, cursor:'pointer',
@@ -165,8 +151,7 @@ function PlanPanel({ planToBuy, planToGo, onRemoveBuy, onRemoveGo, onClearAll })
         <div style={{
           position:'fixed', bottom:0, left:0, right:0, zIndex:999,
           background:'#0d2e22', borderTop:'1px solid rgba(16,185,129,0.3)',
-          borderRadius:'16px 16px 0 0', padding:'20px 16px',
-          paddingBottom:'max(32px, calc(env(safe-area-inset-bottom) + 16px))',
+          borderRadius:'16px 16px 0 0', padding:'20px 16px 32px',
           maxHeight:'70vh', overflowY:'auto',
           boxShadow:'0 -8px 40px rgba(0,0,0,0.5)',
           fontFamily:"'DM Sans',-apple-system,sans-serif",
@@ -252,10 +237,7 @@ function SpecialsTicker() {
           </span>
         ))}
       </div>
-      <style>{`
-        @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-        .nav-tabs::-webkit-scrollbar { display: none; }
-      `}</style>
+      <style>{`@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}`}</style>
     </div>
   );
 }
@@ -276,17 +258,12 @@ function NavTabs({ active, setActive, planCount }) {
     { id:'specials', label:'This Week', icon:'🏷️' },
     { id:'guide', label:'Store Guide', icon:'🗺️' },
     { id:'route', label:'Route', icon:'⛽' },
-    { id:'recipes', label:'Recipes', icon:'👨‍🍳' },
+    { id:'updates', label:'Updates', icon:'📓' },
     { id:'contribute', label:'Contribute', icon:'🤝' },
     { id:'feedback', label:'Feedback', icon:'📝' },
   ];
   return (
-    <div className="nav-tabs" style={{
-      display:'flex', gap:3, background:C.sf, borderRadius:12,
-      padding:4, border:'1px solid '+C.sb,
-      overflowX:'auto', WebkitOverflowScrolling:'touch',
-      scrollbarWidth:'none', msOverflowStyle:'none',
-    }}>
+    <div style={{ display:'flex', gap:3, background:C.sf, borderRadius:12, padding:4, border:'1px solid '+C.sb, overflowX:'auto' }}>
       {tabs.map(t => (
         <button key={t.id} onClick={() => setActive(t.id)} style={{
           flex:1, padding:'9px 4px', borderRadius:10, border:'none', cursor:'pointer',
@@ -308,6 +285,7 @@ function SpecialsTab({ planToBuy, onAddBuy, planToGo, onToggleGo }) {
 
   const handleAddItem = (special) => {
     onAddBuy(special);
+    // Also add the store to planToGo
     if (special.storeKey) onToggleGo(special.storeKey, true);
     setAdded(special.item);
     setTimeout(() => setAdded(null), 1500);
@@ -344,10 +322,7 @@ function SpecialsTab({ planToBuy, onAddBuy, planToGo, onToggleGo }) {
                 cursor: alreadyAdded ? 'default' : 'pointer', transition:'all .15s',
                 marginBottom:3,
               }}>
-                <div>
-                  <span style={{ color:C.t1, fontSize:14 }}>{it.item}</span>
-                  {it.note && <span style={{ display:'block', fontSize:10, color:'#c084fc', marginTop:2 }}>🎫 {it.note}</span>}
-                </div>
+                <span style={{ color:C.t1, fontSize:14 }}>{it.item}</span>
                 <div style={{ display:'flex', alignItems:'center', gap:8, flexShrink:0 }}>
                   <div style={{ textAlign:'right' }}>
                     <span style={{ color:C.yl, fontWeight:700, fontSize:15 }}>${it.price}</span>
@@ -430,6 +405,7 @@ function StoreGuide({ planToGo, onToggleGo }) {
     );
   };
 
+  // Group supermarkets by chain
   const byChain = {};
   supermarkets.forEach(s => { if(!byChain[s.chain]) byChain[s.chain]=[]; byChain[s.chain].push(s); });
   const chainColors = {"Pak'nSave":'#eab308', "New World":'#ef4444', Woolworths:'#22c55e', FreshChoice:'#06b6d4', "Four Square":'#f97316'};
@@ -491,6 +467,7 @@ function RoutePlannerTab({ planToGo, onToggleGo }) {
   const [error, setError] = useState('');
   const [synced, setSynced] = useState(false);
 
+  // One-tap sync from planToGo
   const syncFromPlan = () => {
     setSelected(new Set(planToGo));
     setSynced(true);
@@ -526,9 +503,10 @@ function RoutePlannerTab({ planToGo, onToggleGo }) {
     return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}${waypoints?'&waypoints='+waypoints:''}&travelmode=driving`;
   };
 
-  const is = { width:'100%', padding:'10px 14px', borderRadius:10, border:'1px solid '+C.ab, background:'rgba(0,0,0,0.3)', color:C.t1, fontSize:16, outline:'none', fontFamily:'inherit' };
+  const is = { width:'100%', padding:'10px 14px', borderRadius:10, border:'1px solid '+C.ab, background:'rgba(0,0,0,0.3)', color:C.t1, fontSize:14, outline:'none', fontFamily:'inherit' };
   const toggleBtn = (active) => ({ flex:1, padding:'9px 0', borderRadius:9, border:active?'1px solid '+C.ac:'1px solid '+C.sb, background:active?C.ac:'transparent', color:active?'white':C.t2, fontSize:13, fontWeight:600, cursor:'pointer', transition:'all .15s' });
 
+  // Group stores by area
   const storesByArea = {};
   ALL_STORES.filter(s=>s.lat).forEach(s=>{
     if(!storesByArea[s.area]) storesByArea[s.area]=[];
@@ -543,6 +521,7 @@ function RoutePlannerTab({ planToGo, onToggleGo }) {
         <div style={{ marginTop:6, fontSize:11, color:C.t3 }}>📍 Tauranga · Straight-line distance estimate</div>
       </div>
 
+      {/* Step 1 */}
       <div style={{ background:C.sf, border:'1px solid '+C.sb, borderRadius:12, padding:16, marginBottom:10 }}>
         <div style={{ fontSize:11, fontWeight:600, color:C.t3, textTransform:'uppercase', letterSpacing:.6, marginBottom:8 }}>1 · Your starting address</div>
         <div style={{ display:'flex', gap:8 }}>
@@ -553,6 +532,7 @@ function RoutePlannerTab({ planToGo, onToggleGo }) {
         </div>
       </div>
 
+      {/* Step 2 — by area */}
       <div style={{ background:C.sf, border:'1px solid '+C.sb, borderRadius:12, padding:16, marginBottom:10 }}>
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:12 }}>
           <div style={{ fontSize:11, fontWeight:600, color:C.t3, textTransform:'uppercase', letterSpacing:.6 }}>2 · Shops to visit</div>
@@ -576,7 +556,7 @@ function RoutePlannerTab({ planToGo, onToggleGo }) {
                 <span style={{ fontSize:11, color:C.t3, fontWeight:600 }}>📍 {area}</span>
                 {areaSelected > 0 && <span style={{ fontSize:10, background:C.ad, color:C.t3, padding:'1px 6px', borderRadius:20 }}>{areaSelected}</span>}
               </div>
-              <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(140px, 1fr))', gap:5 }}>
+              <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:5 }}>
                 {areaStores.map((s) => (
                   <button key={s.key} onClick={()=>toggle(s.key)} style={{
                     display:'flex', alignItems:'center', gap:7, padding:'8px 10px',
@@ -597,6 +577,7 @@ function RoutePlannerTab({ planToGo, onToggleGo }) {
         })}
       </div>
 
+      {/* Step 3 — end of trip */}
       <div style={{ background:C.sf, border:'1px solid '+C.sb, borderRadius:12, padding:16, marginBottom:10 }}>
         <div style={{ fontSize:11, fontWeight:600, color:C.t3, textTransform:'uppercase', letterSpacing:.6, marginBottom:10 }}>3 · End of trip</div>
         <div style={{ display:'flex', gap:8 }}>
@@ -634,6 +615,7 @@ function RoutePlannerTab({ planToGo, onToggleGo }) {
 
           <div style={{ fontSize:11, fontWeight:600, color:C.t3, textTransform:'uppercase', letterSpacing:.6, marginBottom:10 }}>Suggested order</div>
 
+          {/* Start */}
           <div style={{ display:'flex', alignItems:'flex-start', gap:12, padding:'10px 0', borderBottom:'1px solid '+C.sb }}>
             <div style={{ width:26, height:26, borderRadius:'50%', background:'rgba(255,255,255,0.12)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:13, flexShrink:0 }}>🏠</div>
             <div>
@@ -684,52 +666,68 @@ function RoutePlannerTab({ planToGo, onToggleGo }) {
   );
 }
 
-// ========== RECIPES TAB ==========
-function RecipesTab() {
-  const sites = [
-    { name:"recipes.co.nz", tagline:"NZ's home cooking hub", desc:"The biggest NZ recipe site — budget-friendly, seasonal, built around Kiwi pantry staples. Great 'budget-friendly' section with under-$15 family meals.", url:"https://recipes.co.nz/budget-friendly/", tags:["Budget","Family","Quick"], color:"#10b981" },
-    { name:"NZ Woman's Weekly Food", tagline:"Flat dinners & family meals", desc:"Trusted NZ recipes including 20+ budget flat dinners, kumara dishes, and slow cooker classics. Reliable, crowd-tested recipes.", url:"https://www.nzwomansweeklyfood.co.nz/dinner/budget-friendly-flatting-dinner-recipes-34975/", tags:["Flat dinners","Family","Slow cooker"], color:"#f97316" },
-    { name:"Frugal Kiwi", tagline:"Budget cooking NZ-style", desc:"Recipes built around what's cheap at PnSave this week. Strong focus on batch cooking, meal prep, and reducing food waste.", url:"https://frugalkiwi.co.nz/10-budget-friendly-nz-recipes-for-savvy-frugal-living/", tags:["Budget","Batch cook","Frugal"], color:"#eab308" },
-    { name:"NZ's Favourite Recipe", tagline:"Classic Kiwi recipes", desc:"Community-submitted Kiwi favourites — pavlova, mince dishes, banana cake, crockpot meals. The classics your nana would recognise.", url:"https://www.nzfavouriterecipe.co.nz/", tags:["Classic","Community","Kiwi"], color:"#8b5cf6" },
-    { name:"Pak'nSave Savey Meal-Bot", tagline:"AI meal planner from leftovers", desc:"PnSave's AI meal planner builds recipes from what you have at home — great for using up leftover specials. Also has Aisle of Value weekly deals.", url:"https://www.paknsave.co.nz/", tags:["AI","Specials","Quick"], color:"#fbbf24" },
-    { name:"New World Recipes", tagline:"Fresh & seasonal NZ cooking", desc:"Ties directly to weekly specials — search by ingredient to cook around what's on sale this week.", url:"https://www.newworld.co.nz/inspiration/recipes", tags:["Seasonal","Specials","Fresh"], color:"#ef4444" },
+// ========== UPDATES TAB ==========
+function UpdatesTab() {
+  const entries = [
+    {
+      date: "22 Jun 2026",
+      label: "Week of 22 June",
+      title: "WW & NW updated — Club+ doing something a bit weird",
+      paras: [
+        "Specials updated for Woolworths and New World. Pak'nSave data is carried over from last week — will refresh once their specials drop.",
+        "Big observation this week: New World has gone hard on Club+ deals. About half their best prices are now behind the card. The card is free to sign up, so that's not really the issue.",
+        "The issue is Pak'nSave. PnSave joined Club+ in June 2026 too — except at Pak'nSave, you can only spend your points, not earn them. New World earns. Four Square earns. Pak'nSave just takes. The idea seems to be: rack up points at New World or Four Square, then cash them out at Pak'nSave. Which sounds fine in theory. But in practice, who's doing a weekly New World shop large enough to build meaningful points just to spend at Pak'nSave later? It's a bit of a loyalty programme that's loyal to one specific store in the family.",
+        "Worth knowing if you were expecting to earn points during your usual PnSave run. You can't. For now, Club+ items in the New World section are labelled so you know which prices need the card.",
+      ],
+      tags: ["Woolworths", "New World", "Club+"],
+      latest: true,
+    },
+    {
+      date: "15 Jun 2026",
+      label: "Week of 15 June",
+      title: "All three stores updated",
+      paras: [
+        "Standard weekly refresh across all three chains. Woolworths had a solid run of pantry staples on special — breakfast cereals, pasta, canned goods — a good week to stock up if your shelves were looking bare.",
+        "New World's meat counter was the highlight: lamb and beef both on meaningful discount. If you're planning a weekend roast, this was the week for it.",
+      ],
+      tags: ["Woolworths", "New World", "Pak'nSave"],
+      latest: false,
+    },
+    {
+      date: "8 Jun 2026",
+      label: "Week of 8 June",
+      title: "First update of June",
+      paras: [
+        "Getting the weekly rhythm going. Pak'nSave Tauriko had strong produce deals this week — potatoes, onions, and a couple of fruit specials worth grabbing if you're passing through Tauranga Crossing.",
+        "Added a note to the Store Guide as a reminder: FreshChoice Greerton is a solid option if you're in the south end and want to skip the Cameron Rd chaos on a Saturday morning. Locally owned, decent fresh section.",
+      ],
+      tags: ["Pak'nSave", "FreshChoice"],
+      latest: false,
+    },
   ];
-  const tips = ["Use Grocer.nz to compare prices across all major supermarkets before your shop.","Buy meat in bulk from a local butcher and freeze in portions — fresher and cheaper than supermarket.","GLAD-wrapped meat is packed in-store and is much fresher than pre-packaged trays.","Frozen vegetables are nutritionally equal to fresh and create zero waste. Stock up when on special.","Asian supermarkets sell eggs, rice, sauces, and spices at significantly lower prices.","Bin Inn sells nuts at roughly half the supermarket price. BYO containers for 5% extra off.","Cook in bulk on Sunday, portion into containers for weekday lunches. Saves $30-50/week.","Pak'nSave's Savey Meal-Bot: type in your leftover ingredients and it suggests meals.","Club+ rewards launched June 2026 across Pak'nSave, New World and Four Square — sign up free."];
 
   return (
     <div>
-      <div style={{ textAlign:'center', marginBottom:16, padding:'12px 0' }}>
-        <h2 style={{ fontFamily:"'Fraunces',Georgia,serif", fontSize:22, color:C.t1, fontWeight:400, marginBottom:4 }}>Recipe & Cooking Resources</h2>
-        <p style={{ color:C.t2, fontSize:13 }}>The best NZ recipe sites for budget Kiwi cooking — all free.</p>
+      <div style={{ textAlign:'center', marginBottom:20, padding:'12px 0' }}>
+        <h2 style={{ fontFamily:"'Fraunces',Georgia,serif", fontSize:22, color:C.t1, fontWeight:400, marginBottom:4 }}>Updates & Notes</h2>
+        <p style={{ color:C.t2, fontSize:13 }}>Weekly specials log — what changed, what stood out, what's worth knowing.</p>
       </div>
-      <div style={{ display:'grid', gap:10, marginBottom:20 }}>
-        {sites.map((s,i) => (
-          <a key={i} href={s.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration:'none', display:'block' }}>
-            <div style={{ background:C.sf, border:'1px solid '+C.sb, borderRadius:12, padding:16, transition:'all .15s', cursor:'pointer' }}
-              onMouseOver={e=>{e.currentTarget.style.borderColor=s.color;}}
-              onMouseOut={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,0.07)';}}>
-              <div style={{ display:'flex', alignItems:'flex-start', gap:10, marginBottom:8 }}>
-                <div style={{ width:10, height:10, borderRadius:'50%', background:s.color, flexShrink:0, marginTop:4 }} />
-                <div style={{ flex:1 }}>
-                  <span style={{ color:C.t1, fontWeight:700, fontSize:15 }}>{s.name}</span>
-                  <span style={{ fontSize:11, color:C.t3, marginLeft:6 }}>↗</span>
-                  <div style={{ fontSize:12, color:s.color, marginTop:1 }}>{s.tagline}</div>
-                </div>
-              </div>
-              <p style={{ color:C.t2, fontSize:13, lineHeight:1.5, marginBottom:8 }}>{s.desc}</p>
-              <div style={{ display:'flex', gap:5, flexWrap:'wrap' }}>
-                {s.tags.map((t,j) => <span key={j} style={{ fontSize:10, color:C.t3, background:'rgba(255,255,255,0.05)', border:'1px solid '+C.sb, padding:'2px 8px', borderRadius:20 }}>{t}</span>)}
-              </div>
+      <div style={{ display:'grid', gap:12 }}>
+        {entries.map((entry, i) => (
+          <div key={i} style={{ background:C.sf, border:'1px solid '+(entry.latest ? C.ac : C.sb), borderRadius:12, padding:16, position:'relative' }}>
+            {entry.latest && (
+              <span style={{ position:'absolute', top:14, right:14, background:C.ac, color:'white', fontSize:10, fontWeight:700, padding:'2px 9px', borderRadius:20, letterSpacing:'0.04em' }}>LATEST</span>
+            )}
+            <div style={{ fontSize:11, color:C.ac, fontWeight:600, letterSpacing:'0.06em', textTransform:'uppercase', marginBottom:4 }}>{entry.label}</div>
+            <h3 style={{ fontFamily:"'Fraunces',Georgia,serif", fontSize:17, color:C.t1, fontWeight:500, marginBottom:12, paddingRight: entry.latest ? 70 : 0, lineHeight:1.3 }}>{entry.title}</h3>
+            {entry.paras.map((para, j) => (
+              <p key={j} style={{ color:C.t2, fontSize:13, lineHeight:1.65, marginBottom: j < entry.paras.length - 1 ? 10 : 8 }}>{para}</p>
+            ))}
+            <div style={{ display:'flex', gap:5, flexWrap:'wrap', marginTop:10 }}>
+              {entry.tags.map((tag, j) => (
+                <span key={j} style={{ fontSize:10, color:C.t3, background:'rgba(255,255,255,0.05)', border:'1px solid '+C.sb, padding:'2px 8px', borderRadius:20 }}>{tag}</span>
+              ))}
             </div>
-          </a>
-        ))}
-      </div>
-      <div style={{ background:C.sf, border:'1px solid '+C.sb, borderRadius:12, padding:16 }}>
-        <h3 style={{ fontFamily:"'Fraunces',Georgia,serif", fontSize:18, color:C.t1, fontWeight:500, marginBottom:12 }}>General Savings Tips</h3>
-        {tips.map((tip,i) => (
-          <div key={i} style={{ display:'flex', gap:8, marginBottom:8 }}>
-            <span style={{ color:C.ac, flexShrink:0, marginTop:2 }}>✦</span>
-            <span style={{ color:C.t2, fontSize:13, lineHeight:1.5 }}>{tip}</span>
           </div>
         ))}
       </div>
@@ -744,7 +742,7 @@ function ContributeTab() {
   const [form, setForm] = useState({ storeName:'', storeType:'butcher', city:'', location:'', website:'', deals:'', name:'' });
   const [submitted, setSubmitted] = useState(false);
   const types = [{v:'butcher',l:'🥩 Butcher'},{v:'produce',l:'🥬 Fruit & Veg'},{v:'asian',l:'🍜 Asian Grocery'},{v:'bakery',l:'🍞 Bakery'},{v:'seafood',l:'🐟 Seafood'},{v:'dairy',l:'🧀 Cheese/Dairy'},{v:'bulk',l:'📦 Bulk Store'},{v:'market',l:'🌾 Market'},{v:'other',l:'🏪 Other'}];
-  const is = { width:'100%', padding:'10px 14px', borderRadius:10, border:'1px solid '+C.ab, background:'rgba(0,0,0,0.3)', color:C.t1, fontSize:16, outline:'none', marginBottom:12 };
+  const is = { width:'100%', padding:'10px 14px', borderRadius:10, border:'1px solid '+C.ab, background:'rgba(0,0,0,0.3)', color:C.t1, fontSize:14, outline:'none', marginBottom:12 };
   const ls = { display:'block', color:C.t3, fontSize:11, fontWeight:600, marginBottom:4, textTransform:'uppercase', letterSpacing:'0.5px' };
 
   const handleSubmit = () => {
@@ -837,7 +835,7 @@ function FeedbackTab() {
           <div style={{ fontSize:11, color:C.t3 }}>{t.d}</div>
         </button>)}
       </div>
-      <textarea value={text} onChange={e=>setText(e.target.value)} placeholder={ph[type]} rows={5} style={{ width:'100%', padding:'12px 14px', borderRadius:10, border:'1px solid '+C.ab, background:'rgba(0,0,0,0.3)', color:C.t1, fontSize:16, outline:'none', resize:'vertical', marginBottom:14, lineHeight:1.5 }} />
+      <textarea value={text} onChange={e=>setText(e.target.value)} placeholder={ph[type]} rows={5} style={{ width:'100%', padding:'12px 14px', borderRadius:10, border:'1px solid '+C.ab, background:'rgba(0,0,0,0.3)', color:C.t1, fontSize:14, outline:'none', resize:'vertical', marginBottom:14, lineHeight:1.5 }} />
       <button onClick={handleSend} disabled={!text.trim()} style={{ width:'100%', padding:12, borderRadius:10, border:'none', background:!text.trim()?'#064e3b':'linear-gradient(135deg,#059669,#10b981)', color:'white', fontWeight:700, fontSize:14, cursor:!text.trim()?'not-allowed':'pointer', opacity:!text.trim()?0.5:1 }}>
         📨 Send Feedback via Email
       </button>
@@ -846,7 +844,7 @@ function FeedbackTab() {
 }
 
 // ========== MAIN ==========
-export default function App() {
+export default function SaveSmartNZ() {
   const [tab, setTab] = useState('specials');
   const [planToBuy, setPlanToBuy] = useState([]);
   const [planToGo, setPlanToGo] = useState(new Set());
@@ -885,15 +883,14 @@ export default function App() {
           <div style={{ fontSize:13, color:C.t3, fontWeight:600, letterSpacing:3, textTransform:'uppercase', marginBottom:6 }}>🧺 Kete Tauranga</div>
           <h1 style={{ fontFamily:"'Fraunces',Georgia,serif", fontSize:32, fontWeight:400, color:C.t1, lineHeight:1.2, marginBottom:6 }}>Eat well. Spend smart.</h1>
           <p style={{ color:C.t2, fontSize:14 }}>Your local guide to saving on groceries in Tauranga</p>
-          <div style={{ marginTop:8, fontSize:11, color:C.t3 }}>📅 Specials updated: 15 Jun 2026 · 📊 {SPECIALS.length} deals · 🏪 {ALL_STORES.length} stores</div>
-          <div style={{ marginTop:4, fontSize:11, color:C.t3 }}>🌐 <a href="https://janesxd8877-dotcom.github.io/kete-tauranga/" target="_blank" rel="noopener noreferrer" style={{ color:'#10b981', textDecoration:'none' }}>janesxd8877-dotcom.github.io/kete-tauranga</a></div>
+          <div style={{ marginTop:8, fontSize:11, color:C.t3 }}>📅 Specials updated: 22 Jun 2026 · 📊 {SPECIALS.length} deals · 🏪 {ALL_STORES.length} stores</div>
         </div>
         <CitySelector />
         <div style={{ marginBottom:16 }}><NavTabs active={tab} setActive={setTab} planCount={planToBuy.length+planToGo.size} /></div>
         {tab==='specials' && <SpecialsTab planToBuy={planToBuy} onAddBuy={addBuy} planToGo={planToGo} onToggleGo={toggleGo} />}
         {tab==='guide' && <StoreGuide planToGo={planToGo} onToggleGo={toggleGo} />}
         {tab==='route' && <RoutePlannerTab planToGo={planToGo} onToggleGo={toggleGo} />}
-        {tab==='recipes' && <RecipesTab />}
+        {tab==='updates' && <UpdatesTab />}
         {tab==='contribute' && <ContributeTab />}
         {tab==='feedback' && <FeedbackTab />}
         <div style={{ textAlign:'center', marginTop:36, fontSize:11, color:'rgba(16,185,129,0.3)' }}>
