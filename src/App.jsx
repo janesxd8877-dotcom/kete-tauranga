@@ -91,29 +91,29 @@ const AREAS = [
   'Papamoa',
 ];
 
-// ========== SPECIALS — updated 22 Jun 2026 ==========
+// ========== SPECIALS — updated 30 Jun 2026 ==========
 const SPECIALS = [
-  // Pak'nSave — 22 Jun 2026 (Extra Low pricing; "was" prices are estimates)
-  { item:"Broccoli (3 for $5)", price:1.67, unit:"ea", storeKey:'pns-cameron', store:"Pak'nSave", was:2.49 },
-  { item:"NZ Pork Spare Ribs", price:5.00, unit:"kg", storeKey:'pns-tauriko', store:"Pak'nSave", was:8.99 },
-  { item:"NZ Chicken Thigh Cutlets", price:9.99, unit:"kg", storeKey:'pns-cameron', store:"Pak'nSave", was:13.99 },
-  { item:"NZ Pork Mince", price:13.89, unit:"kg", storeKey:'pns-tauriko', store:"Pak'nSave", was:17.99 },
-  { item:"Anchor Butter 500g", price:8.99, unit:"pack", storeKey:'pns-cameron', store:"Pak'nSave", was:10.99 },
-  { item:"Fresh 'n Fruity Greek Natural 1kg", price:6.49, unit:"tub", storeKey:'pns-tauriko', store:"Pak'nSave", was:8.49 },
-  // Woolworths — 22 Jun 2026
-  { item:"Beef Mince Grass Fed 1kg", price:16.99, unit:"tray", storeKey:'ww-bethlehem', store:"Woolworths", was:21.99 },
-  { item:"Sealord Hoki Fillets Crumb 420g", price:7.60, unit:"pack", storeKey:'ww-bayfair', store:"Woolworths", was:9.50 },
-  { item:"Farmer Brown Eggs Cage Free 12pk", price:8.50, unit:"pack", storeKey:'ww-papamoa', store:"Woolworths", was:10.99 },
-  { item:"Mainland Mozzarella Grated 375g", price:8.90, unit:"bag", storeKey:'ww-bethlehem', store:"Woolworths", was:10.42 },
-  { item:"Fresh 'n' Fruity Greek Yoghurt 6pk", price:5.50, unit:"pack", storeKey:'ww-bayfair', store:"Woolworths", was:6.50 },
-  { item:"Weet-Bix Cereal 1.2kg", price:7.99, unit:"box", storeKey:'ww-papamoa', store:"Woolworths", was:10.98 },
-  // New World — 22 Jun 2026 (Club+ prices marked)
-  { item:"NZ Chicken Tenderloins", price:17.99, unit:"kg", storeKey:'nw-gatepa', store:"New World", was:24.99 },
-  { item:"NZ Beef Brisket", price:19.99, unit:"kg", storeKey:'nw-brookfield', store:"New World", was:26.99 },
-  { item:"Avocado", price:1.49, unit:"each", storeKey:'nw-mount', store:"New World", was:2.49 },
-  { item:"Kalo Greek Yoghurt 800g (Club+)", price:6.99, unit:"tub", storeKey:'nw-gatepa', store:"New World", was:9.29 },
-  { item:"Otaika Valley Free Range Eggs 12pk (Club+)", price:11.29, unit:"pack", storeKey:'nw-brookfield', store:"New World", was:12.59 },
-  { item:"Ornelle Camembert 110g (Club+)", price:3.69, unit:"each", storeKey:'nw-mount', store:"New World", was:4.89 },
+  // Pak'nSave Cameron Rd — 30 Jun 2026 (Extra Low — category price leaders)
+  { item:"NZ Queen Apples", price:1.99, unit:"kg", storeKey:'pns-cameron', store:"Pak'nSave", was:null },
+  { item:"Mandarins", price:3.49, unit:"kg", storeKey:'pns-cameron', store:"Pak'nSave", was:null },
+  { item:"NZ Chicken Legs", price:7.49, unit:"kg", storeKey:'pns-cameron', store:"Pak'nSave", was:null },
+  { item:"Pams Whole Chicken 1.35kg", price:8.99, unit:"each", storeKey:'pns-cameron', store:"Pak'nSave", was:null },
+  { item:"Whole Trevally", price:9.99, unit:"kg", storeKey:'pns-cameron', store:"Pak'nSave", was:null },
+  { item:"Fresh 'n Fruity Vanilla Bean Yoghurt 1kg", price:4.89, unit:"tub", storeKey:'pns-cameron', store:"Pak'nSave", was:null },
+  // Woolworths — 30 Jun 2026 (top savings by % discount + category spread)
+  { item:"Woolworths NZ Chicken Breast Skinless", price:12.99, unit:"kg", storeKey:'ww-bethlehem', store:"Woolworths", was:15.40 },
+  { item:"Henergy Eggs Cage Free 12pk", price:7.40, unit:"carton", storeKey:'ww-bayfair', store:"Woolworths", was:9.95 },
+  { item:"Mainland Colby Block 1kg", price:13.90, unit:"block", storeKey:'ww-papamoa', store:"Woolworths", was:17.70 },
+  { item:"Olivani Olive Oil Pure 1L", price:16.00, unit:"bottle", storeKey:'ww-bethlehem', store:"Woolworths", was:20.00 },
+  { item:"Kapiti Ice Cream On Stick range 360–420mL", price:7.50, unit:"pack", storeKey:'ww-bayfair', store:"Woolworths", was:11.29 },
+  { item:"Woolworths Burger Buns Plain 6pk", price:2.50, unit:"pack", storeKey:'ww-papamoa', store:"Woolworths", was:4.00 },
+  // New World — 30 Jun 2026 (quality meat focus + steepest Club+ discounts)
+  { item:"NZ Chicken Thigh Cutlets", price:11.99, unit:"kg", storeKey:'nw-brookfield', store:"New World", was:null },
+  { item:"Beef Corned Silverside", price:16.99, unit:"kg", storeKey:'nw-brookfield', store:"New World", was:null },
+  { item:"Waitoa Free Range Whole Chicken 1.5kg (Club+)", price:14.99, unit:"each", storeKey:'nw-gatepa', store:"New World", was:null },
+  { item:"Kellogg's Coco Pops Chex 500g (Club+)", price:6.99, unit:"box", storeKey:'nw-gatepa', store:"New World", was:11.89 },
+  { item:"Uncle Tobys Oats Brown Sugar 10x35g (Club+)", price:4.49, unit:"pack", storeKey:'nw-mount', store:"New World", was:6.39 },
+  { item:"Bluebird Originals Ready Salted Chips 150g (Club+)", price:2.19, unit:"bag", storeKey:'nw-mount', store:"New World", was:3.09 },
 ];
 
 // ========== HELPERS ==========
